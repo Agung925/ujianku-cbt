@@ -4,6 +4,7 @@ use App\Http\Controllers\Guru\SiswaManagementController;
 use App\Http\Controllers\Guru\KategoriUjianController;
 use App\Http\Controllers\Guru\SoalController;
 use App\Http\Controllers\Guru\SoalImportController;
+use App\Http\Controllers\Guru\UjianController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,7 +49,18 @@ Route::prefix('soal')->name('guru.soal.')->group(function () {
 
 // ===== UJIAN =====
 Route::prefix('ujian')->name('guru.ujian.')->group(function () {
-    Route::get('/', fn() => view('guru.ujian.index'))->name('index');
+    Route::get('/',                              [UjianController::class, 'index'])->name('index');
+    Route::get('/create',                        [UjianController::class, 'create'])->name('create');
+    Route::post('/',                             [UjianController::class, 'store'])->name('store');
+    Route::get('/{id}',                          [UjianController::class, 'show'])->name('show');
+    Route::get('/{id}/edit',                     [UjianController::class, 'edit'])->name('edit');
+    Route::patch('/{id}',                        [UjianController::class, 'update'])->name('update');
+    Route::delete('/{id}',                       [UjianController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}/questions',                [UjianController::class, 'manageQuestions'])->name('manage-questions');
+    Route::post('/{id}/questions',               [UjianController::class, 'assignQuestions'])->name('questions.assign');
+    Route::delete('/{id}/questions/{soalId}',    [UjianController::class, 'removeQuestion'])->name('questions.remove');
+    Route::patch('/{id}/activate',               [UjianController::class, 'activate'])->name('activate');
+    Route::patch('/{id}/deactivate',             [UjianController::class, 'deactivate'])->name('deactivate');
 });
 
 // ===== HASIL =====

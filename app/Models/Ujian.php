@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Stancl\Tenancy\Models\Tenant;
 
@@ -57,5 +58,12 @@ class Ujian extends Model
     public function nilai(): HasMany
     {
         return $this->hasMany(Nilai::class);
+    }
+
+    public function soal(): BelongsToMany
+    {
+        return $this->belongsToMany(Soal::class, 'exam_questions', 'ujian_id', 'soal_id')
+                    ->withPivot('urutan')
+                    ->orderByPivot('urutan');
     }
 }
