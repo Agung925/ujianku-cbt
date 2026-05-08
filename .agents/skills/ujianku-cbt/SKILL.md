@@ -85,7 +85,7 @@ Environment     : .env file (JANGAN commit ke repo)
 Domain-based routing:
 - sekolah1.ujianku.test → Tenant 1
 - sekolah2.ujianku.test → Tenant 2
-- app.ujianku.test → Super Admin (platform level)
+- app.ujianku.test → Admin (platform level)
 
 Alternative (Subdomain-less):
 - ujianku.test/sekolah1 → Tenant 1
@@ -97,7 +97,7 @@ Alternative (Subdomain-less):
 
 **Master Tables (NOT scoped to tenant):**
 ```
-- users (super_admin role)
+- users (admin role)
 - tenants
 - roles (platform-wide)
 - permissions (platform-wide)
@@ -120,11 +120,11 @@ Alternative (Subdomain-less):
 
 ### Authentication Strategy
 
-**Super Admin & Admin:**
+**Admin:**
 ```
 Method    : Email + Password (hashed bcrypt)
 Storage   : users table
-Roles     : super_admin, admin
+Roles     : admin
 Session   : Laravel session (cookie-based)
 ```
 
@@ -157,20 +157,18 @@ Session   : Laravel session dengan timeout 2 jam (exam duration)
 ### Roles & Permissions Hierarchy
 
 ```
-LEVEL 1: SUPER ADMIN (Platform)
+LEVEL 1: ADMIN (Platform/Per Tenant/Sekolah)
   ├── Create/Delete/Update tenants
   ├── Manage global settings
   ├── View platform-wide analytics
   └── Upload logo per tenant
-
-LEVEL 2: ADMIN (Per Tenant/Sekolah)
   ├── Manage guru & siswa
   ├── Approve exam schedules
   ├── Manage exam categories
   ├── Nonaktifkan/delete akun
   └── Upload foto siswa
 
-LEVEL 3: GURU (Per Tenant)
+LEVEL 2: GURU (Per Tenant)
   ├── Create questions (pilihan ganda & essay)
   ├── Import soal dari Excel
   ├── Create & schedule exam
@@ -178,7 +176,7 @@ LEVEL 3: GURU (Per Tenant)
   ├── View hasil siswa mereka
   └── Wali kelas: entry nama+NIS siswa
 
-LEVEL 4: SISWA (Per Tenant)
+LEVEL 3: SISWA (Per Tenant)
   ├── Take exam (soal pilihan ganda otomatis, essay manual)
   ├── View history
   └── (NO access to grades — only guru/admin)
@@ -200,7 +198,7 @@ ujianku-cbt/
 ├── app/
 │   ├── Models/
 │   │   ├── Tenant.php
-│   │   ├── User.php (super_admin, admin)
+│   │   ├── User.php (admin)
 │   │   ├── Guru.php
 │   │   ├── Siswa.php
 │   │   ├── Soal.php
@@ -213,10 +211,9 @@ ujianku-cbt/
 │   │
 │   ├── Http/
 │   │   ├── Controllers/
-│   │   │   ├── SuperAdmin/
+│   │   │   ├── Admin/
 │   │   │   │   ├── TenantController.php
 │   │   │   │   └── DashboardController.php
-│   │   │   ├── Admin/
 │   │   │   │   ├── GuruController.php
 │   │   │   │   ├── SiswaController.php
 │   │   │   │   ├── LogoController.php
@@ -235,7 +232,7 @@ ujianku-cbt/
 │   │       ├── CheckTenant.php
 │   │       ├── IsSiswa.php
 │   │       ├── IsAdmin.php
-│   │       └── IsAdminOrSuperAdmin.php
+│   │       └── IsAdmin.php
 │   │
 │   ├── Services/
 │   │   ├── ExamService.php
@@ -267,7 +264,7 @@ ujianku-cbt/
 │   └── seeders/
 │       ├── DatabaseSeeder.php
 │       ├── RoleAndPermissionSeeder.php
-│       └── SuperAdminSeeder.php
+│       └── AdminSeeder.php
 │
 ├── resources/
 │   ├── views/
@@ -275,7 +272,6 @@ ujianku-cbt/
 │   │   │   ├── app.blade.php (base layout dengan navbar konsisten)
 │   │   │   ├── auth.blade.php
 │   │   │   └── minimal.blade.php
-│   │   ├── superadmin/
 │   │   ├── admin/
 │   │   ├── guru/
 │   │   ├── siswa/
@@ -296,7 +292,6 @@ ujianku-cbt/
 ├── routes/
 │   ├── web.php (main routes)
 │   ├── api.php (optional untuk future mobile app)
-│   ├── superadmin.php (prefix: /super-admin)
 │   ├── admin.php (prefix: /admin)
 │   ├── guru.php (prefix: /guru)
 │   └── siswa.php (prefix: /siswa)
@@ -367,14 +362,14 @@ Alerts      : alert alert-info, alert alert-success, etc.
 
 ## 📊 Database Models (Outline)
 
-### User Model (Super Admin & Admin)
+### User Model (Admin)
 ```
 - id
-- tenant_id (nullable — super admin doesn't have tenant)
+- tenant_id (nullable — admin doesn't have tenant)
 - name
 - email
 - password (hashed)
-- role (super_admin / admin)
+- role (admin)
 - foto_profil (path ke file)
 - is_active
 - created_at, updated_at

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\KategoriUjianController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LogoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +57,16 @@ Route::prefix('kategori-ujian')->name('admin.kategori-ujian.')->group(function (
     Route::get('/{kategoriUjian}/edit', [KategoriUjianController::class, 'edit'])->name('edit');
     Route::patch('/{kategoriUjian}', [KategoriUjianController::class, 'update'])->name('update');
     Route::delete('/{kategoriUjian}', [KategoriUjianController::class, 'destroy'])->name('destroy');
+});
+
+// ===== LOGO & IDENTITAS =====
+Route::prefix('logo')->name('admin.logo.')->group(function () {
+    Route::get('/', [LogoController::class, 'index'])->name('index');
+    Route::get('/{tenant}/edit', [LogoController::class, 'edit'])->name('edit');
+    Route::put('/{tenant}', [LogoController::class, 'update'])->name('update');
+    Route::get('/{tenant}', [LogoController::class, 'show'])->name('show');
+    Route::delete('/{logo}', [LogoController::class, 'destroy'])->name('destroy');
+    Route::post('/{logo}/restore', [LogoController::class, 'restore'])->name('restore');
 });
 
 // ===== LAPORAN =====
