@@ -3,6 +3,7 @@
 use App\Http\Controllers\Guru\SiswaManagementController;
 use App\Http\Controllers\Guru\KategoriUjianController;
 use App\Http\Controllers\Guru\SoalController;
+use App\Http\Controllers\Guru\SoalImportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,11 @@ Route::prefix('soal')->name('guru.soal.')->group(function () {
     Route::patch('/{soal}', [SoalController::class, 'update'])->name('update');
     Route::delete('/{soal}', [SoalController::class, 'destroy'])->name('destroy');
     Route::post('/{soal}/duplicate', [SoalController::class, 'duplicate'])->name('duplicate');
+    
+    // ===== SOAL IMPORT =====
+    Route::get('/import', [SoalImportController::class, 'showForm'])->name('import.form');
+    Route::post('/import', [SoalImportController::class, 'import'])->name('import');
+    Route::get('/template', [SoalImportController::class, 'downloadTemplate'])->name('template');
 });
 
 // ===== UJIAN =====
