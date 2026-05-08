@@ -3,7 +3,7 @@
 **Project**: Computer-Based Test Platform for Islamic Junior High Schools (MTs)  
 **Repository**: github.com/Agung925/ujianku-cbt  
 **Current Date**: May 8, 2026  
-**Overall Progress**: `████████░░░░░░░░░░░░` **40%** (Phase 0-1 Complete)
+**Overall Progress**: `████████████░░░░░░░░` **60%** (Phase 0-2 Complete)
 
 ---
 
@@ -130,51 +130,30 @@ File Management:
 
 ---
 
-### ⏳ PHASE 2: Authentication & Authorization — **0% (Pending)**
+### ✅ PHASE 2: Authentication & Authorization — **100% COMPLETE**
 
-**Status**: 🔄 Ready to Start  
-**Est. Duration**: 45 minutes  
-**Complexity**: Medium
+**Status**: ✅ Production Ready  
+**Start Date**: May 8, 2026  
+**Completion Date**: May 8, 2026  
+**Duration**: ~1 hour
 
-#### Sub-Tasks Planned:
+#### Sub-Tasks Completed:
 
-| Sub-Prompt | Task | Status |
-|------------|------|--------|
-| 1.1 | Create Models & Migrations for Users & Auth | ⏳ Pending |
-| 1.2 | Create Models & Migrations for Exam System | ⏳ Pending |
-| 1.3 | Create Models & Migrations for File Uploads | ⏳ Pending |
-| 1.4 | Add Tenant Scoping to All Models | ⏳ Pending |
+| Sub-Prompt | Task | Status | Details |
+|------------|------|--------|---------|
+| 2.1 | Setup Google OAuth for Guru Login | ✅ Complete | Socialite callback controller + google_id persistence |
+| 2.2 | Setup NIS + Password Login for Siswa | ✅ Complete | Custom request/controller + siswa session auth |
+| 2.3 | Setup Admin & Super Admin Login | ✅ Complete | Email/password auth flow + role redirect |
+| 2.4 | Create Role-Based Middleware & Authorization | ✅ Complete | checkRole, checkTenant, siswa.auth middleware wiring |
 
-#### Expected Deliverables:
-- 10 Models (User, Guru, Siswa, KategoriUjian, Soal, Ujian, JawabanSiswa, Nilai, LogoIdentitas, FileUpload)
-- 10 Migrations (with proper foreign keys & indexes)
-- BelongsToTenant trait for automatic tenant scoping
-- Relationship definitions in all models
-
----
-
-### ⏳ PHASE 2: Authentication & Authorization — **0% (Pending)**
-
-**Status**: 🔄 Ready to Start  
-**Est. Duration**: 1 hour  
-**Complexity**: High
-
-#### Sub-Tasks Planned:
-
-| Sub-Prompt | Task | Status |
-|------------|------|--------|
-| 2.1 | Setup Google OAuth for Guru Login | ⏳ Pending |
-| 2.2 | Setup NIS + Password Login for Siswa | ⏳ Pending |
-| 2.3 | Setup Admin & Super Admin Login | ⏳ Pending |
-| 2.4 | Create Role-Based Middleware & Authorization | ⏳ Pending |
-
-#### Expected Deliverables:
-- Google OAuth integration (Guru)
-- NIS + Password custom auth (Siswa)
-- Email + Password auth (Admin/Super Admin)
-- 3 middleware (CheckRole, CheckTenant, RoleGuard)
-- 4 authentication controllers
-- 4 login views
+#### Deliverables:
+- ✅ Migration: add `google_id` column to `gurus`
+- ✅ Controllers: `GoogleCallbackController`, `SiswaAuthController`, `AdminAuthController`
+- ✅ Requests: `SiswaLoginRequest`, `AdminLoginRequest`
+- ✅ Middleware: `CheckRole`, `CheckTenant`, `IsSiswa`, `IsAdmin`, `IsAdminOrSuperAdmin`
+- ✅ Login views: `auth/admin-login`, `auth/siswa-login`, updated default `auth/login`
+- ✅ Routes: `/auth/google`, `/admin/login`, `/siswa/login`, logout endpoints
+- ✅ Bootstrap route groups updated for tenant/role middleware
 
 ---
 
@@ -191,7 +170,7 @@ Future phases for full feature implementation:
 
 ## 📋 DATABASE SCHEMA OVERVIEW
 
-### Current Tables (7):
+### Current Tables (17):
 ```sql
 -- Central (Landlord) Tables
 - migrations
@@ -202,7 +181,7 @@ Future phases for full feature implementation:
 - roles
 - permissions
 
--- Tenant Tables (after Phase 1):
+-- Tenant Tables (after Phase 2):
 - gurus
 - siswas
 - kategori_ujians

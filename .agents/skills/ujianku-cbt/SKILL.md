@@ -145,6 +145,15 @@ Rules     : Password = NIS (default), admin/guru bisa change
 Session   : Laravel session dengan timeout 2 jam (exam duration)
 ```
 
+**Implementation Notes (Phase 2 Complete):**
+```
+- Guru OAuth Routes      : /auth/google, /auth/google/callback
+- Admin Login Routes     : /admin/login, /admin/logout
+- Siswa Login Routes     : /siswa/login, /siswa/logout
+- Middleware (custom)    : checkRole, checkTenant, siswa.auth
+- Admin helper middleware: isAdmin, isAdminOrSuperAdmin
+```
+
 ### Roles & Permissions Hierarchy
 
 ```
@@ -222,9 +231,11 @@ ujianku-cbt/
 │   │   │       └── DashboardController.php
 │   │   │
 │   │   └── Middleware/
+│   │       ├── CheckRole.php
 │   │       ├── CheckTenant.php
-│   │       ├── EnsureTenantScope.php
-│   │       └── EnsureRole.php
+│   │       ├── IsSiswa.php
+│   │       ├── IsAdmin.php
+│   │       └── IsAdminOrSuperAdmin.php
 │   │
 │   ├── Services/
 │   │   ├── ExamService.php

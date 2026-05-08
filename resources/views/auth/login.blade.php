@@ -43,5 +43,19 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <div class="mt-6 space-y-2">
+            <a href="{{ route('google.redirect') }}" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                Login dengan Google (Guru)
+            </a>
+
+            <a href="{{ route('admin.login') }}" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                Login Admin / Super Admin
+            </a>
+
+            <a href="{{ route('siswa.login') }}" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                Login Siswa (NIS)
+            </a>
+        </div>
     </form>
 </x-guest-layout>

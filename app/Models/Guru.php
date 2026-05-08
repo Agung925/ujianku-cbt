@@ -20,6 +20,7 @@ class Guru extends Model
         'tenant_id',
         'user_id',
         'email',
+        'google_id',
         'nama',
         'nip',
         'foto_profil',

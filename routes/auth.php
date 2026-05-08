@@ -1,17 +1,38 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\GoogleCallbackController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\SiswaAuthController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    Route::get('admin/login', [AdminAuthController::class, 'showLoginForm'])
+        ->name('admin.login');
+
+    Route::post('admin/login', [AdminAuthController::class, 'login'])
+        ->name('admin.login.store');
+
+    Route::get('siswa/login', [SiswaAuthController::class, 'showLoginForm'])
+        ->name('siswa.login');
+
+    Route::post('siswa/login', [SiswaAuthController::class, 'login'])
+        ->name('siswa.login.store');
+
+    Route::get('auth/google', [GoogleCallbackController::class, 'redirect'])
+        ->name('google.redirect');
+
+    Route::get('auth/google/callback', [GoogleCallbackController::class, 'handleCallback'])
+        ->name('google.callback');
+
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
@@ -36,6 +57,9 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('admin/logout', [AdminAuthController::class, 'logout'])
+        ->name('admin.logout');
+
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -56,4 +80,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+});
+
+Route::middleware(['web', 'siswa.auth'])->group(function () {
+    Route::post('siswa/logout', [SiswaAuthController::class, 'logout'])
+        ->name('siswa.logout');
 });

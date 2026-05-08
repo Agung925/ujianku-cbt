@@ -11,25 +11,30 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
-            Route::middleware(['web', 'auth', 'role:super_admin'])
+            Route::middleware(['web', 'auth', 'checkRole:super_admin'])
                 ->prefix('super-admin')
                 ->group(base_path('routes/superadmin.php'));
 
-            Route::middleware(['web', 'auth', 'role:admin'])
+            Route::middleware(['web', 'auth', 'checkTenant', 'checkRole:admin'])
                 ->prefix('admin')
                 ->group(base_path('routes/admin.php'));
 
-            Route::middleware(['web', 'auth', 'role:guru'])
+            Route::middleware(['web', 'auth', 'checkTenant', 'checkRole:guru'])
                 ->prefix('guru')
                 ->group(base_path('routes/guru.php'));
 
-            Route::middleware(['web', 'auth', 'role:siswa'])
+            Route::middleware(['web', 'checkTenant', 'siswa.auth'])
                 ->prefix('siswa')
                 ->group(base_path('routes/siswa.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            'checkRole' => \App\Http\Middleware\CheckRole::class,
+            'checkTenant' => \App\Http\Middleware\CheckTenant::class,
+            'siswa.auth' => \App\Http\Middleware\IsSiswa::class,
+            'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+            'isAdminOrSuperAdmin' => \App\Http\Middleware\IsAdminOrSuperAdmin::class,
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,

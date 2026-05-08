@@ -225,7 +225,7 @@ Alert     : alert alert-info / alert-success / alert-error
 |-------|---------------------------------|----------|--------------|
 | 0     | Project Setup & Initial Config  | 30 mnt   | ✅ COMPLETE   |
 | 1     | Database Design & Migrations    | 45 mnt   | ✅ COMPLETE   |
-| 2     | Authentication & Authorization  | 1 jam    | ⬜ Belum mulai |
+| 2     | Authentication & Authorization  | 1 jam    | ✅ COMPLETE   |
 | 3     | User Management & Profile       | 45 mnt   | ⬜ Belum mulai |
 | 4     | Exam Engine & Question Mgmt     | 2 jam    | ⬜ Belum mulai |
 | 5     | Grading System                  | —        | ⬜ Belum mulai |
@@ -257,9 +257,17 @@ Alert     : alert alert-info / alert-success / alert-error
 - ✅ RBAC (spatie/laravel-permission) sudah setup
 - ✅ Phase 0 sudah 100% complete
 - ✅ Phase 1 sudah 100% complete (10 models, 10 migrations, BelongsToTenant trait)
-- ⏳ Phase 2-7 siap untuk dikerjakan
+- ✅ Phase 2 sudah 100% complete (Google OAuth Guru, NIS login Siswa, Admin login, middleware role/tenant)
+- ⏳ Phase 3-7 siap untuk dikerjakan
 
-**Overall Progress**: 40% (Phase 0-1 complete)
+**Overall Progress**: 60% (Phase 0-2 complete)
+
+### Phase 2 Authentication Notes (Implemented)
+- Guru login via Google OAuth: `/auth/google` dan `/auth/google/callback`
+- Siswa login via NIS + password: `/siswa/login`
+- Admin/Super Admin login via email + password: `/admin/login`
+- Siswa session timeout: 2 jam (checked di middleware `IsSiswa`)
+- Tenant + role enforcement: middleware `checkTenant` + `checkRole`
 
 ### AI Agent Workflow Rules (WAJIB DIIKUTI)
 
