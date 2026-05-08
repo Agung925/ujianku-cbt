@@ -632,8 +632,14 @@ Before going to production:
 ```
 ❌ DILARANG: AI Agent melakukan git commit
 ❌ DILARANG: AI Agent melakukan git push
-✅ HANYA USER: Yang boleh melakukan commit & push
+❌ DILARANG: AI Agent menjalankan 'git add' atau git commands apapun
+✅ HANYA USER: Yang boleh melakukan commit & push manual
 ✅ AI Agent: Hanya generate kode, update files, verify output
+
+SETELAH PHASE SELESAI:
+- AI Agent siapkan kode yang sudah ditest & siap commit
+- USER yang MANUAL jalankan: git add . && git commit -m "..."
+- USER yang MANUAL jalankan: git push (jika ada)
 ```
 
 **QUALITY ASSURANCE:**

@@ -38,6 +38,13 @@ Dalam setiap prompt, kamu HARUS:
 9. Setiap file model perlu relationship definitions
 10. Setiap migration perlu foreign keys & indexes
 
+⚠️ PENTING: GIT OPERATIONS
+- ❌ JANGAN lakukan: git commit, git push, git add
+- ❌ JANGAN jalankan git commands apapun
+- ✅ HANYA USER yang boleh commit & push manual
+- ✅ Kamu hanya siapkan kode yang siap commit
+- ✅ Di akhir phase, informkan: "Kode siap commit oleh user"
+
 Setelah selesai dengan satu task, informkan kamu sudah selesai dan siap untuk task berikutnya.
 
 Jika ada ambiguitas, TANYAKAN kepada developer untuk konfirmasi.
@@ -471,4 +478,9 @@ Output: Berikan saya kode CheckRole middleware yang sudah dibuat.
 - Jangan skip steps — setiap phase depend pada phase sebelumnya
 - Test setiap step dengan: php artisan tinker, database inspection
 - Jika ada error: READ pesan error dengan teliti, bukan langsung copy-paste solusi
-- Commit ke git setelah setiap phase sukses: git add . && git commit -m "Phase X completed"
+- **MANUAL: Setelah phase sukses, lakukan commit ke Git:**
+  ```
+  git add .
+  git commit -m "Phase X: [deskripsi]"
+  ```
+  (AI Agent HANYA siapkan kode, USER yang COMMIT)

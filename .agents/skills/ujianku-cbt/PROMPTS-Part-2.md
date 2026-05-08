@@ -5,6 +5,28 @@
 
 ---
 
+## 📌 MASTER CONTEXT (BACA DULU!)
+
+Sebelum menjalankan sub-prompts di Part 2, ensure kamu sudah aware:
+
+```
+⚠️ CRITICAL: GIT OPERATIONS
+- ❌ JANGAN lakukan: git commit, git push, git add
+- ❌ JANGAN jalankan git commands apapun
+- ✅ HANYA USER yang boleh commit & push manual
+- ✅ Kamu hanya siapkan kode yang siap commit
+- ✅ Di akhir setiap phase, informkan: "Kode siap commit oleh user"
+
+WORKFLOW:
+1. Generate/update kode sesuai prompt
+2. Test setiap fitur hingga working
+3. Informkan phase selesai
+4. USER yang MANUAL commit ke Git
+5. Lanjut ke phase berikutnya
+```
+
+---
+
 # 📍 PHASE 3: User Management & Profile System
 
 ## ⏱️ Estimasi: 45 menit | Kompleksitas: Medium | Priority: HIGH
@@ -805,7 +827,12 @@ Output: Berikan saya checklist lengkap & .env.example yang sudah dibuat.
 3. Test setiap phase sebelum lanjut
 
 **Best Practices:**
-- Commit ke Git setelah setiap phase: `git commit -m "Phase X: completed"`
+- **MANUAL: Commit ke Git setelah setiap phase:**
+  ```bash
+  git add .
+  git commit -m "Phase X: [deskripsi]"
+  ```
+  (AI Agent HANYA siapkan kode, USER yang LAKUKAN commit manual)
 - Jangan commit .env file atau sensitive data
 - Write tests seiring dengan development (TDD)
 - Code review dengan mentor sebelum merge (jika ada)

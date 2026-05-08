@@ -72,7 +72,13 @@ Access:   http://localhost:8000/admin/dashboard
 ```
 1. Test fitur yang baru dibuat (manual testing)
 2. Fix errors jika ada
-3. Lanjut ke phase berikutnya
+3. **MANUAL: Commit perubahan ke Git**
+   ```bash
+   git add .
+   git commit -m "Phase X: [deskripsi]"
+   ```
+   (AI Agent HANYA siapkan kode, USER yang COMMIT)
+4. Lanjut ke phase berikutnya
 ```
 
 ---
@@ -86,7 +92,7 @@ Access:   http://localhost:8000/admin/dashboard
 ✓ Jika Copilot generate code → REVIEW sebelum accept
 ✓ Jika ada error → READ error message dulu, jangan langsung skip
 ✓ Test setiap fitur sebelum lanjut phase berikutnya
-✓ Commit regularly ke Git (jangan tunggu semua selesai)
+✓ SETELAH phase selesai: USER yang commit ke Git (bukan AI Agent)
 ✓ Tanya Copilot untuk explanation kode yang tidak dimengerti
 ```
 
