@@ -151,7 +151,7 @@ Session   : Laravel session dengan timeout 2 jam (exam duration)
 - Admin Login Routes     : /admin/login, /admin/logout
 - Siswa Login Routes     : /siswa/login, /siswa/logout
 - Middleware (custom)    : checkRole, checkTenant, siswa.auth
-- Admin helper middleware: isAdmin, isAdminOrSuperAdmin
+- Admin helper middleware: isAdmin
 ```
 
 ### Roles & Permissions Hierarchy
@@ -569,7 +569,7 @@ Alerts      : alert alert-info, alert alert-success, etc.
 ```
 ✓ PascalCase + "Controller" (SoalController, UjianController)
 ✓ Methods: camelCase (store(), update(), destroy())
-✓ Nested: SuperAdmin\TenantController, Admin\SiswaController
+✓ Nested: Admin\TenantController, Admin\SiswaController
 ```
 
 ### Views
