@@ -18,7 +18,7 @@ class SiswaLoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        $tenantId = Tenancy::getTenant()?->id;
+        $tenantId = tenancy()->tenant?->id;
 
         $nisRule = Rule::exists('siswas', 'nis')->where(function ($query) use ($tenantId) {
             if ($tenantId !== null) {

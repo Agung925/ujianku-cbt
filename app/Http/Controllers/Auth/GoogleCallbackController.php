@@ -35,7 +35,7 @@ class GoogleCallbackController extends Controller
             ]);
         }
 
-        $tenantId = Tenancy::getTenant()?->id;
+        $tenantId = tenancy()->tenant?->id;
 
         if ($tenantId === null) {
             return redirect()->route('login')->withErrors([

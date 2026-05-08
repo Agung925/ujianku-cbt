@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\SiswaController;
+use App\Http\Controllers\Admin\KategoriUjianController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,17 @@ Route::prefix('siswa')->name('admin.siswa.')->group(function () {
     Route::post('/{siswa}/activate', [SiswaController::class, 'activate'])->name('activate');
     Route::post('/{siswa}/deactivate', [SiswaController::class, 'deactivate'])->name('deactivate');
     Route::post('/{siswa}/reset-password', [SiswaController::class, 'resetPassword'])->name('reset-password');
+});
+
+// ===== KATEGORI UJIAN =====
+Route::prefix('kategori-ujian')->name('admin.kategori-ujian.')->group(function () {
+    Route::get('/', [KategoriUjianController::class, 'index'])->name('index');
+    Route::get('/create', [KategoriUjianController::class, 'create'])->name('create');
+    Route::post('/', [KategoriUjianController::class, 'store'])->name('store');
+    Route::get('/{kategoriUjian}', [KategoriUjianController::class, 'show'])->name('show');
+    Route::get('/{kategoriUjian}/edit', [KategoriUjianController::class, 'edit'])->name('edit');
+    Route::patch('/{kategoriUjian}', [KategoriUjianController::class, 'update'])->name('update');
+    Route::delete('/{kategoriUjian}', [KategoriUjianController::class, 'destroy'])->name('destroy');
 });
 
 // ===== LAPORAN =====

@@ -36,7 +36,7 @@ class TenantScope implements Scope
     private function getCurrentTenantId(): ?string
     {
         try {
-            return \Stancl\Tenancy\Facades\Tenancy::getTenant()?->id;
+            return tenancy()->tenant?->id;
         } catch (\Exception $e) {
             // No active tenant context
             return null;

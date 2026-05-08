@@ -104,7 +104,7 @@ class FileUploadService
      */
     private function getTenantId(): string
     {
-        $tenant = \Stancl\Tenancy\Facades\Tenancy::getTenant();
+        $tenant = tenancy()->tenant;
 
         if ($tenant) {
             return $tenant->id;
