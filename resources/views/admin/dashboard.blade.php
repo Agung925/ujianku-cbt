@@ -4,10 +4,70 @@
     </x-slot>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <x-stats-card title="Total Guru" :value="$total_guru" desc="Guru di platform/tenant" color="primary" />
-        <x-stats-card title="Total Siswa" :value="$total_siswa" desc="Siswa di platform/tenant" color="secondary" />
-        <x-stats-card title="Total Kategori" :value="$total_kategori" desc="Bank soal" color="accent" />
-        <x-stats-card title="Ujian Hari Ini" :value="$ujian_hari_ini" desc="Ujian yang dibuat" color="info" />
+        <div class="card bg-primary text-primary-content">
+            <div class="card-body">
+                <p class="text-sm opacity-75">Total Guru</p>
+                <p class="text-3xl font-bold">{{ $stats['total_guru'] ?? 0 }}</p>
+            </div>
+        </div>
+        <div class="card bg-secondary text-secondary-content">
+            <div class="card-body">
+                <p class="text-sm opacity-75">Total Siswa</p>
+                <p class="text-3xl font-bold">{{ $stats['total_siswa'] ?? 0 }}</p>
+            </div>
+        </div>
+        <div class="card bg-accent text-accent-content">
+            <div class="card-body">
+                <p class="text-sm opacity-75">Total Ujian</p>
+                <p class="text-3xl font-bold">{{ $stats['total_exam'] ?? 0 }}</p>
+            </div>
+        </div>
+        <div class="card bg-info text-info-content">
+            <div class="card-body">
+                <p class="text-sm opacity-75">Rata-rata Nilai</p>
+                <p class="text-3xl font-bold">{{ $stats['average_score'] ?? 0 }}%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Pass Rate Card -->
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+                <h2 class="card-title">Tingkat Kelulusan</h2>
+                <div class="mt-4">
+                    <p class="text-4xl font-bold text-success">{{ $stats['pass_rate'] ?? 0 }}%</p>
+                    <p class="text-sm text-base-content/70 mt-2">Dari semua ujian yang telah diikuti</p>
+                    <div class="mt-4 w-full bg-base-300 rounded-full h-3">
+                        <div class="bg-success h-3 rounded-full" style="width: {{ $stats['pass_rate'] ?? 0 }}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Exams -->
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+                <h2 class="card-title">Ujian Mendatang (7 Hari)</h2>
+                <div class="mt-4">
+                    @if($stats['upcoming_exams'] && count($stats['upcoming_exams']) > 0)
+                        <div class="space-y-2">
+                            @foreach(array_slice($stats['upcoming_exams'], 0, 3) as $exam)
+                            <div class="flex justify-between items-center p-2 bg-base-200 rounded">
+                                <span class="text-sm">{{ Str::limit($exam['name'], 25) }}</span>
+                                <span class="text-xs">{{ $exam['date'] }}</span>
+                            </div>
+                            @endforeach
+                            @if(count($stats['upcoming_exams']) > 3)
+                                <p class="text-xs text-base-content/50 text-center mt-2">+{{ count($stats['upcoming_exams']) - 3 }} ujian lagi</p>
+                            @endif
+                        </div>
+                    @else
+                        <p class="text-center text-base-content/50 py-4">Tidak ada ujian mendatang</p>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -15,35 +75,47 @@
         <div class="card bg-base-100 shadow">
             <div class="card-body">
                 <h2 class="card-title">Akses Cepat</h2>
-                <div class="grid grid-cols-2 gap-3 mt-2">
+                <div class="grid grid-cols-2 gap-3 mt-4">
                     <a href="{{ route('admin.guru.index') }}" class="btn btn-primary btn-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         Kelola Guru
                     </a>
                     <a href="{{ route('admin.siswa.index') }}" class="btn btn-secondary btn-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         Kelola Siswa
                     </a>
-                    <a href="{{ route('admin.guru.create') }}" class="btn btn-outline btn-sm">
-                        + Tambah Guru
+                    <a href="{{ route('admin.dashboard.statistics') }}" class="btn btn-accent btn-sm">
+                        Statistik
                     </a>
-                    <a href="{{ route('admin.siswa.create') }}" class="btn btn-outline btn-sm">
-                        + Tambah Siswa
+                    <a href="{{ route('admin.guru.create') }}" class="btn btn-outline btn-sm">
+                        + Guru
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Info Panel -->
+        <!-- Quick Info -->
         <div class="card bg-base-100 shadow">
             <div class="card-body">
-                <h2 class="card-title">Panel Admin</h2>
-                <p class="text-base-content/70">Kelola semua data platform: guru, siswa, dan ujian.</p>
-                <div class="mt-3">
-                    <div class="badge badge-primary badge-outline">{{ auth()->user()->name }}</div>
-                    <div class="badge badge-ghost ml-1">Admin</div>
+                <h2 class="card-title">Info Panel</h2>
+                <div class="mt-4 space-y-2 text-sm">
+                    <div class="flex justify-between">
+                        <span>User:</span>
+                        <span class="font-semibold">{{ auth()->user()->name }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Total Soal:</span>
+                        <span class="font-semibold">{{ $stats['total_questions'] ?? 0 }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Waktu:</span>
+                        <span class="font-semibold">{{ now()->format('d M Y') }}</span>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- News Feed -->
+    <div class="mt-8">
+        <x-news-feed :news="$news ?? []" />
     </div>
 </x-app-layout>

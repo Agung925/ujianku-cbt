@@ -6,6 +6,7 @@ use App\Http\Controllers\Guru\SoalController;
 use App\Http\Controllers\Guru\SoalImportController;
 use App\Http\Controllers\Guru\UjianController;
 use App\Http\Controllers\Guru\NilaiController;
+use App\Http\Controllers\Guru\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 | Middleware: auth, role:guru
 */
 
-Route::get('/dashboard', fn() => view('guru.dashboard'))->name('guru.dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('guru.dashboard');
+Route::get('/dashboard/statistics', [DashboardController::class, 'statisticsPage'])->name('guru.dashboard.statistics');
+Route::get('/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('guru.dashboard.chart-data');
+Route::get('/dashboard/student-performance', [DashboardController::class, 'studentPerformance'])->name('guru.dashboard.student-performance');
+Route::get('/dashboard/export-grades', [DashboardController::class, 'exportGrades'])->name('guru.dashboard.export-grades');
 
 // ===== SISWA MANAGEMENT (Wali Kelas) =====
 Route::prefix('siswa')->name('guru.siswa.')->group(function () {

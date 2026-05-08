@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::get('/dashboard/statistics', [DashboardController::class, 'statisticsPage'])->name('admin.dashboard.statistics');
+Route::get('/dashboard/chart-data', [DashboardController::class, 'chartData'])->name('admin.dashboard.chart-data');
+Route::get('/dashboard/export', [DashboardController::class, 'exportStatistics'])->name('admin.dashboard.export');
 
 // ===== GURU MANAGEMENT =====
 Route::prefix('guru')->name('admin.guru.')->group(function () {

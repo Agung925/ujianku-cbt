@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Siswa\ExamController;
+use App\Http\Controllers\Siswa\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | Middleware: auth, role:siswa
 */
 
-Route::get('/dashboard', fn() => view('siswa.dashboard'))->name('siswa.dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('siswa.dashboard');
 
 Route::prefix('ujian')->name('siswa.ujian.')->group(function () {
     Route::get('/', [ExamController::class, 'index'])->name('index');
