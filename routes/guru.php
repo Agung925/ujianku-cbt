@@ -23,15 +23,15 @@ Route::prefix('siswa')->name('guru.siswa.')->group(function () {
 
 // ===== SOAL =====
 Route::prefix('soal')->name('guru.soal.')->group(function () {
-    Route::get('/', fn() => response('Soal Index'))->name('index');
+    Route::get('/', fn() => view('guru.soal.index'))->name('index');
 });
 
 // ===== UJIAN =====
 Route::prefix('ujian')->name('guru.ujian.')->group(function () {
-    Route::get('/', fn() => response('Ujian Index'))->name('index');
+    Route::get('/', fn() => view('guru.ujian.index'))->name('index');
 });
 
 // ===== HASIL =====
 Route::prefix('hasil')->name('guru.hasil.')->group(function () {
-    Route::get('/', fn() => response('Hasil Index'))->name('index');
+    Route::get('/', fn() => view('guru.hasil.index'))->name('index');
 });

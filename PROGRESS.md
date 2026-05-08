@@ -3,7 +3,7 @@
 **Project**: Computer-Based Test Platform for Islamic Junior High Schools (MTs)  
 **Repository**: github.com/Agung925/ujianku-cbt  
 **Current Date**: May 8, 2026  
-**Overall Progress**: `███████████████░░░░░` **75%** (Phase 0-3 Complete)
+**Overall Progress**: `████████████████░░░░` **80%** (Phase 0-3 Complete + Route Handling)
 
 ---
 
@@ -169,6 +169,7 @@ File Management:
 | 3.1 | FileUploadService (foto profil, foto siswa, logo) | ✅ Complete |
 | 3.2 | Admin/GuruController, Admin/SiswaController, Guru/SiswaManagementController | ✅ Complete |
 | 3.3 | Views: admin/guru/*, admin/siswa/*, guru/siswa/*, admin/dashboard updated | ✅ Complete |
+| 3.4 | Route Handling: Role-based redirects + Placeholder views for all routes | ✅ Complete |
 
 #### Deliverables:
 - ✅ `app/Services/FileUploadService.php` — upload foto, resize dengan Intervention Image v3
@@ -181,6 +182,21 @@ File Management:
 - ✅ Views: `guru/siswa/index`, `create` (bulk entry dengan JS dynamic rows)
 - ✅ Routes: 15 admin guru routes + 11 admin siswa routes + 4 guru siswa routes
 - ✅ Admin dashboard updated dengan stats real-time (total guru, total siswa)
+- ✅ **NEW**: Placeholder views for all remaining routes (siswa ujian/hasil, guru soal/ujian/hasil, admin laporan)
+- ✅ **NEW**: Role-based redirect logic in web.php (`/` and `/dashboard` redirect based on user role)
+- ✅ **NEW**: All 6 placeholder routes now return proper Blade views (not response() text)
+
+#### Placeholder Views Created (Phase 3.4):
+```
+✅ resources/views/siswa/ujian/index.blade.php     — Daftar Ujian untuk Siswa
+✅ resources/views/siswa/hasil/index.blade.php     — Riwayat & Hasil Ujian
+✅ resources/views/admin/laporan/index.blade.php   — Laporan & Statistik Admin
+✅ resources/views/guru/soal/index.blade.php       — Bank Soal (Guru)
+✅ resources/views/guru/ujian/index.blade.php      — Manajemen Ujian (Guru)
+✅ resources/views/guru/hasil/index.blade.php      — Hasil & Nilai Siswa (Guru)
+```
+
+All views use x-app-layout component, Tailwind CSS, DaisyUI styling with placeholder content.
 
 ---
 

@@ -43,5 +43,5 @@ Route::prefix('siswa')->name('admin.siswa.')->group(function () {
 
 // ===== LAPORAN =====
 Route::prefix('laporan')->name('admin.laporan.')->group(function () {
-    Route::get('/', fn() => response('Laporan Index'))->name('index');
+    Route::get('/', fn() => view('admin.laporan.index'))->name('index');
 });
