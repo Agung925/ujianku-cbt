@@ -669,6 +669,78 @@ Before going to production:
 
 ---
 
-**Last Updated:** 2026-05-08  
+---
+
+## 🏗️ Phase 3 Implementation Notes (User Management)
+
+### FileUploadService
+```php
+// app/Services/FileUploadService.php
+// Intervention Image v3 (GD Driver) — gunakan ImageManager baru per instance
+$manager = new ImageManager(new Driver());
+$image = $manager->read($file->getRealPath());
+$image->cover(300, 300); // crop center
+Storage::put($path, $image->toJpeg(85)->toString());
+```
+
+### Controllers (Phase 3)
+```
+Admin/GuruController    → CRUD guru + upload foto profil
+Admin/SiswaController   → CRUD siswa + aktivasi/deaktivasi + reset password + upload foto
+Guru/SiswaManagementController → bulk create siswa (khusus wali kelas) + upload foto siswa
+```
+
+### FormRequest Classes (Phase 3)
+```
+GuruRequest      → validasi nama, email unique ignore self, nip unique ignore self
+SiswaRequest     → validasi nis unique (filter deleted_at null), nama, kelas
+BulkSiswaRequest → validasi siswas[].nis distinct, siswas[].nama, siswas[].kelas
+FileUploadRequest → max 2MB jpg/jpeg/png, logo max 1MB + svg
+```
+
+### Views Structure (Phase 3)
+```
+resources/views/admin/
+  ├── dashboard.blade.php      ← updated: stats real-time guru/siswa count
+  ├── guru/
+  │   ├── index.blade.php      ← table + foto avatar + badge status
+  │   ├── create.blade.php     ← form: nama, email, nip, wali_kelas toggle
+  │   ├── edit.blade.php       ← form + upload foto panel samping
+  │   └── show.blade.php       ← detail card dengan aksi
+  └── siswa/
+      ├── index.blade.php      ← filter kelas+search, table, aktivasi toggle
+      ├── create.blade.php     ← form: nis, nama, kelas, email
+      ├── edit.blade.php       ← form + upload foto + reset password
+      └── show.blade.php       ← detail + aksi
+
+resources/views/guru/
+  └── siswa/
+      ├── index.blade.php      ← list siswa + modal upload foto (wali kelas)
+      └── create.blade.php     ← bulk entry dengan JS dynamic rows (maks 50)
+```
+
+### Routes (Phase 3)
+```
+routes/admin.php:
+  GET/POST   /admin/guru           → index, store
+  GET        /admin/guru/create    → create form
+  GET/PUT/DELETE /admin/guru/{guru} → show, update, destroy
+  GET        /admin/guru/{guru}/edit → edit form
+  POST       /admin/guru/{guru}/upload-photo
+  GET/POST   /admin/siswa          → index, store
+  POST       /admin/siswa/{siswa}/activate
+  POST       /admin/siswa/{siswa}/deactivate
+  POST       /admin/siswa/{siswa}/reset-password
+  POST       /admin/siswa/{siswa}/upload-photo
+
+routes/guru.php:
+  GET/POST   /guru/siswa           → index (wali kelas), bulk store
+  GET        /guru/siswa/create
+  POST       /guru/siswa/{siswa}/upload-photo
+```
+
+---
+
+**Last Updated:** 2026-05-08 (Phase 3 Complete)  
 **Maintained By:** Konsultan IT Development  
 **Status:** ACTIVE

@@ -258,9 +258,19 @@ Alert     : alert alert-info / alert-success / alert-error
 - ✅ Phase 0 sudah 100% complete
 - ✅ Phase 1 sudah 100% complete (10 models, 10 migrations, BelongsToTenant trait)
 - ✅ Phase 2 sudah 100% complete (Google OAuth Guru, NIS login Siswa, Admin login, middleware role/tenant)
-- ⏳ Phase 3-7 siap untuk dikerjakan
+- ✅ Phase 3 sudah 100% complete (User Management: CRUD guru/siswa, FileUploadService, views lengkap)
+- ⏳ Phase 4-7 siap untuk dikerjakan
 
-**Overall Progress**: 60% (Phase 0-2 complete)
+**Overall Progress**: 75% (Phase 0-3 complete)
+
+### Phase 3 User Management Notes (Implemented)
+- Admin CRUD guru: `/admin/guru` (index, create, edit, show, destroy, upload-photo)
+- Admin CRUD siswa: `/admin/siswa` (+ activate, deactivate, reset-password, upload-photo)
+- Guru wali kelas: `/guru/siswa` (bulk create siswa, upload foto siswa)
+- FileUploadService: resize foto 300x300 (guru), 200x200 (siswa), logo favicon/navbar
+- SiswaController: filter by kelas + search, paginate 20 per page
+- Default password siswa = NIS (di-hash otomatis)
+- Guru baru: password default = NIP, auto-create User account + assign role `guru`
 
 ### Phase 2 Authentication Notes (Implemented)
 - Guru login via Google OAuth: `/auth/google` dan `/auth/google/callback`
