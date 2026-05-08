@@ -57,4 +57,29 @@ class User extends Authenticatable
     {
         return $this->hasRole('siswa');
     }
+
+    // ===== RELATIONSHIPS =====
+    /**
+     * User may have Guru profile
+     */
+    public function guru()
+    {
+        return $this->hasOne(Guru::class);
+    }
+
+    /**
+     * User may have LogoIdentitas uploads
+     */
+    public function logoIdentitas()
+    {
+        return $this->hasMany(LogoIdentitas::class, 'uploaded_by');
+    }
+
+    /**
+     * User may have FileUpload entries
+     */
+    public function fileUploads()
+    {
+        return $this->hasMany(FileUpload::class, 'uploaded_by');
+    }
 }
