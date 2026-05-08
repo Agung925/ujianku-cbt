@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\BelongsToTenant;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,7 +12,7 @@ use Stancl\Tenancy\Models\Tenant;
 
 class Soal extends Model
 {
-    use BelongsToTenant;
+    use BelongsToTenant, HasFactory;
     protected $fillable = [
         'tenant_id',
         'kategori_ujian_id',
