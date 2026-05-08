@@ -99,7 +99,7 @@
                 <div class="mt-4 space-y-2 text-sm">
                     <div class="flex justify-between">
                         <span>User:</span>
-                        <span class="font-semibold">{{ auth()->user()->name }}</span>
+                        <span class="font-semibold">{{ auth()->user()?->name ?? 'System' }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span>Total Soal:</span>
