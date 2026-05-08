@@ -11,17 +11,18 @@ class SuperAdminSeeder extends Seeder
     /**
      * Run the database seeds.
      * 
-     * Create default Super Admin user untuk testing
+     * Create default Admin user untuk testing
      * Email: admin@ujianku.test
      * Password: password
+     * Role: admin (not super_admin)
      */
     public function run(): void
     {
-        // Create or update super admin user
-        $superAdmin = User::updateOrCreate(
+        // Create or update admin user
+        $admin = User::updateOrCreate(
             ['email' => 'admin@ujianku.test'],
             [
-                'name' => 'Super Admin UJIANKU-CBT',
+                'name' => 'Admin Sekolah',
                 'email' => 'admin@ujianku.test',
                 'password' => Hash::make('password'),
                 'is_active' => true,
@@ -29,11 +30,12 @@ class SuperAdminSeeder extends Seeder
             ]
         );
 
-        // Assign super_admin role
-        $superAdmin->syncRoles('super_admin');
+        // Assign admin role (not super_admin)
+        $admin->syncRoles('admin');
 
-        $this->command->info('✅ Super Admin user berhasil dibuat!');
+        $this->command->info('✅ Admin user berhasil dibuat!');
         $this->command->info('   Email: admin@ujianku.test');
         $this->command->info('   Password: password');
+        $this->command->info('   Role: admin');
     }
 }
