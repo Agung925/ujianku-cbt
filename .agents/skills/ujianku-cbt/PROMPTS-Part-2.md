@@ -529,10 +529,10 @@ Output: Berikan saya kode NewsService.php yang sudah dibuat.
 ### Sub-Prompt 6.1: Logo Upload & Dynamic Display
 
 ```
-Create functionality untuk Super Admin ganti logo per tenant:
+Create functionality untuk Admin ganti logo per tenant:
 
 Controllers:
-1. SuperAdmin/LogoController.php
+1. Admin/LogoController.php
    - index() → list semua tenant + logo mereka (preview)
    - edit(tenant_id) → form upload logo untuk tenant
    - update(tenant_id, File) → save logo baru
@@ -543,16 +543,11 @@ Controllers:
    
    - deleteAnyLogo(logo_id) → delete logo, revert ke default
 
-2. Admin/LogoController.php
-   - index() → view current logo (baca saja)
-   - requestChange() → submit request for logo change
-   - (Approval flow optional - bisa langsung di-approve)
-
 Tasks:
 1. Create controller
 2. Create views:
-   - resources/views/superadmin/logo/index.blade.php (manage semua tenant logos)
-   - resources/views/superadmin/logo/edit.blade.php (upload form)
+   - resources/views/admin/logo/index.blade.php (manage semua tenant logos)
+   - resources/views/admin/logo/edit.blade.php (upload form)
    - resources/views/admin/logo/index.blade.php (view current logo)
 3. Create helper: app/Helpers/LogoHelper.php
    - Method: getLogoUrl(tenant_id, type = 'navbar')
@@ -585,11 +580,10 @@ Tasks:
      - Responsive: hamburger menu on mobile
    
    - Sidebar (conditional):
-     - Show untuk admin, guru, super admin
+     - Show untuk admin, guru
      - Hide untuk siswa (mobile-first)
      - Menu items based on role:
-       - Super Admin: Tenants, Settings, Analytics
-       - Admin: Guru, Siswa, Exam, Categories, Logo
+       - Admin: Tenants, Settings, Analytics, Guru, Siswa, Exam, Categories, Logo
        - Guru: Soal, Ujian, Nilai, Profile
      - Collapsible on mobile
      - Active state indicator
