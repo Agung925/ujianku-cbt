@@ -250,8 +250,57 @@ Alert     : alert alert-info / alert-success / alert-error
 
 ## 🗒️ Catatan Agent
 
-- Proyek ini masih kosong — **belum ada Laravel install** di workspace saat ini
-- Workspace hanya berisi: `.agents/`, `.git/`, `.github/`, `.gitignore`
-- **Langkah pertama:** Install Laravel 11 fresh di folder `/workdir/www/ujianku-cbt`
+### Project Status
+- ✅ Laravel 13.8.0 sudah di-install & konfigurasi
+- ✅ Database PostgreSQL 18 sudah terhubung
+- ✅ Multi-tenancy (stancl/tenancy) sudah setup
+- ✅ RBAC (spatie/laravel-permission) sudah setup
+- ✅ Phase 0 sudah 100% complete
+- ⏳ Phase 1-7 siap untuk dikerjakan
+
+### AI Agent Workflow Rules (WAJIB DIIKUTI)
+
+**GIT OPERATIONS** ❌ DILARANG
+```
+❌ AI Agent TIDAK BOLEH: git commit
+❌ AI Agent TIDAK BOLEH: git push
+✅ HANYA USER: Yang boleh melakukan commit & push
+```
+
+**KUALITAS KODE** (Setiap task WAJIB)
+```
+✓ 100% Complete: Tidak boleh ada pekerjaan separuh
+✓ Zero Errors: Tidak boleh ada PHP/SQL/JS errors
+✓ Tested: Semua migrations/seeders sudah dijalankan
+✓ Database Verified: Data sudah persist di PostgreSQL
+✓ Routes Working: Semua routes bisa diakses
+✓ Tenant-Scoped: Semua queries harus tenant-aware
+```
+
+**DOKUMENTASI UPDATE** (Setiap ada perubahan)
+```
+✓ Perubahan alur/logic → UPDATE: SKILL.md
+✓ Perubahan struktur folder → UPDATE: SKILL.md
+✓ Perubahan status phase → UPDATE: PROGRESS.md
+✓ Perubahan database schema → UPDATE: docs/PHASE-*.md
+✓ Perubahan roles/permissions → UPDATE: ujianku-cbt.md
+✓ Perubahan authentication flow → UPDATE: SKILL.md
+```
+
+**HANDOFF SEBELUM DISERAHKAN KE USER**
+```
+□ Code sudah 100% complete & tested
+□ SKILL.md sudah updated (jika ada perubahan)
+□ ujianku-cbt.md sudah updated (jika ada perubahan)
+□ PROGRESS.md sudah updated (jika ada perubahan)
+□ docs/PHASE-*.md sudah updated (jika ada perubahan)
+□ Terminal output ditunjukkan (bukti berhasil)
+□ Database verified di PostgreSQL
+□ Siap untuk: USER → REVIEW → COMMIT → PUSH
+```
+
+### Developer Context
 - Developer adalah **junior developer** — gunakan komentar kode bahasa Indonesia, jelas, dan terbaca
 - Selalu tanya jika ada ambiguitas sebelum generate kode
+- AI Agent adalah **helper**, bukan pengganti developer
+- Setiap keputusan arsitektur: explain reasoning kepada user

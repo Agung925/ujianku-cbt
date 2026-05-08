@@ -615,6 +615,47 @@ Before going to production:
 **Use AI Agent:** GitHub Copilot akan help generate boilerplate, tapi always review hasilnya  
 **Testing:** Write tests seiring dengan development (TDD approach optimal)
 
+### ⚠️ CRITICAL: AI Agent Workflow Rules
+
+**GIT OPERATIONS:**
+```
+❌ DILARANG: AI Agent melakukan git commit
+❌ DILARANG: AI Agent melakukan git push
+✅ HANYA USER: Yang boleh melakukan commit & push
+✅ AI Agent: Hanya generate kode, update files, verify output
+```
+
+**QUALITY ASSURANCE:**
+```
+✓ Setiap task WAJIB selesai 100% tanpa bugs
+✓ Setiap kode HARUS tested sebelum diserahkan ke user
+✓ Setiap migration HARUS berhasil dijalankan (php artisan migrate)
+✓ Setiap seeder HARUS berhasil dijalankan (php artisan db:seed)
+✓ Setiap route HARUS accessible dan tidak error
+✓ Database queries HARUS tenant-scoped & optimized
+✓ Tidak boleh ada PHP errors, syntax errors, atau warning
+```
+
+**DOCUMENTATION UPDATE:**
+```
+✓ Setiap ada perubahan alur: UPDATE .agents/skills/ujianku-cbt/SKILL.md
+✓ Setiap ada perubahan struktur: UPDATE .github/agents/ujianku-cbt.md
+✓ Setiap ada perubahan status phase: UPDATE PROGRESS.md
+✓ Setiap ada perubahan dokumentasi: UPDATE docs/PHASE-*.md
+```
+
+**HANDOFF CHECKLIST (sebelum diserahkan ke user):**
+```
+□ Semua file sudah created/updated
+□ Terminal commands dijalankan & output verified
+□ Database changes sudah persist
+□ No errors di console/terminal
+□ Code sudah reviewed & siap production
+□ SKILL.md & ujianku-cbt.md sudah updated
+□ PROGRESS.md sudah updated jika ada phase changes
+□ Siap untuk user: REVIEW → COMMIT → PUSH
+```
+
 ---
 
 **Last Updated:** 2026-05-08  
