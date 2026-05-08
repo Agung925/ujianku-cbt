@@ -56,10 +56,13 @@ class RoleAndPermissionSeeder extends Seeder
             'submit-exam-answers',
         ];
 
-        // Create permissions
+        // Create permissions first
         foreach ($permissions as $permission) {
             Permission::findOrCreate($permission, 'web');
         }
+
+        // Clear cache after creating permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // ===== ROLES =====
 

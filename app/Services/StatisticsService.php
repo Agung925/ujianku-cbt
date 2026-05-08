@@ -23,6 +23,9 @@ class StatisticsService
         try {
             $tenantId = tenancy()->tenant?->id;
             
+            // Debug tenant ID
+            \Log::info('[StatisticsService] getAdminDashboardStats', ['tenantId' => $tenantId]);
+            
             return [
                 'total_guru' => Guru::whereTenantId($tenantId)->where('is_active', true)->count(),
                 'total_siswa' => Siswa::whereTenantId($tenantId)->where('is_active', true)->count(),
@@ -36,6 +39,7 @@ class StatisticsService
         } catch (\Exception $e) {
             \Log::error('[StatisticsService] Error getting admin stats', [
                 'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
             ]);
             return [];
         }
@@ -207,7 +211,7 @@ class StatisticsService
             $data = [];
             foreach ($nilai as $n) {
                 $data[] = [
-                    'exam_name' => $n->ujian->nama_ujian ?? 'Unknown',
+                    'exam_name' => $n->ujian->judul ?? 'Unknown',
                     'score' => $n->nilai_akhir,
                     'status' => $n->status,
                     'date' => $n->created_at->format('d M Y'),
@@ -336,16 +340,16 @@ class StatisticsService
         $tenantId = tenancy()->tenant?->id;
         
         return Ujian::whereTenantId($tenantId)
-            ->where('tanggal_mulai', '>=', now())
-            ->where('tanggal_mulai', '<=', now()->addDays(7))
-            ->orderBy('tanggal_mulai')
+            ->where('tgl_mulai', '>=', now())
+            ->where('tgl_mulai', '<=', now()->addDays(7))
+            ->orderBy('tgl_mulai')
             ->limit(5)
-            ->get(['id', 'nama_ujian', 'tanggal_mulai'])
+            ->get(['id', 'judul', 'tgl_mulai'])
             ->map(function ($exam) {
                 return [
                     'id' => $exam->id,
-                    'name' => $exam->nama_ujian,
-                    'date' => $exam->tanggal_mulai->format('d M Y H:i'),
+                    'name' => $exam->judul,
+                    'date' => $exam->tgl_mulai->format('d M Y H:i'),
                 ];
             })
             ->toArray();
@@ -362,7 +366,7 @@ class StatisticsService
             ->get()
             ->map(function ($nilai) {
                 return [
-                    'message' => $nilai->siswa->nama_siswa . ' completed ' . $nilai->ujian->nama_ujian,
+                    'message' => $nilai->siswa->nama_siswa . ' completed ' . $nilai->ujian->judul,
                     'date' => $nilai->updated_at->diffForHumans(),
                 ];
             })
@@ -415,10 +419,10 @@ class StatisticsService
         
         return Ujian::whereTenantId($tenantId)
             ->where('guru_id', $guruId)
-            ->where('tanggal_mulai', '>=', now())
-            ->orderBy('tanggal_mulai')
+            ->where('tgl_mulai', '>=', now())
+            ->orderBy('tgl_mulai')
             ->limit(3)
-            ->get(['id', 'nama_ujian', 'tanggal_mulai', 'tanggal_selesai'])
+            ->get(['id', 'judul', 'tgl_mulai', 'tgl_selesai'])
             ->toArray();
     }
 
@@ -428,10 +432,10 @@ class StatisticsService
         
         return Ujian::whereTenantId($tenantId)
             ->where('guru_id', $guruId)
-            ->where('tanggal_selesai', '<', now())
-            ->orderBy('tanggal_selesai', 'desc')
+            ->where('tgl_selesai', '<', now())
+            ->orderBy('tgl_selesai', 'desc')
             ->limit(3)
-            ->get(['id', 'nama_ujian', 'tanggal_selesai'])
+            ->get(['id', 'judul', 'tgl_selesai'])
             ->toArray();
     }
 
@@ -475,17 +479,17 @@ class StatisticsService
         $tenantId = tenancy()->tenant?->id;
         
         $exam = Ujian::whereTenantId($tenantId)
-            ->where('tanggal_mulai', '<=', now())
-            ->where('tanggal_selesai', '>=', now())
-            ->first(['id', 'nama_ujian', 'tanggal_selesai', 'durasi_menit']);
+            ->where('tgl_mulai', '<=', now())
+            ->where('tgl_selesai', '>=', now())
+            ->first(['id', 'judul', 'tgl_selesai', 'waktu_durasi']);
         
         if (!$exam) return null;
         
         return [
             'id' => $exam->id,
-            'name' => $exam->nama_ujian,
-            'end_time' => $exam->tanggal_selesai->format('d M Y H:i'),
-            'duration_minutes' => $exam->durasi_menit,
+            'name' => $exam->judul,
+            'end_time' => $exam->tgl_selesai->format('d M Y H:i'),
+            'duration_minutes' => $exam->waktu_durasi,
         ];
     }
 
@@ -494,15 +498,15 @@ class StatisticsService
         $tenantId = tenancy()->tenant?->id;
         
         return Ujian::whereTenantId($tenantId)
-            ->where('tanggal_mulai', '>', now())
-            ->where('tanggal_mulai', '<=', now()->addDays(7))
-            ->orderBy('tanggal_mulai')
+            ->where('tgl_mulai', '>', now())
+            ->where('tgl_mulai', '<=', now()->addDays(7))
+            ->orderBy('tgl_mulai')
             ->limit(3)
-            ->get(['id', 'nama_ujian', 'tanggal_mulai'])
+            ->get(['id', 'judul', 'tgl_mulai'])
             ->map(function ($exam) {
                 return [
-                    'name' => $exam->nama_ujian,
-                    'date' => $exam->tanggal_mulai->format('d M Y H:i'),
+                    'name' => $exam->judul,
+                    'date' => $exam->tgl_mulai->format('d M Y H:i'),
                 ];
             })
             ->toArray();
@@ -520,7 +524,7 @@ class StatisticsService
             ->get()
             ->map(function ($nilai) {
                 return [
-                    'exam' => $nilai->ujian->nama_ujian,
+                    'exam' => $nilai->ujian->judul,
                     'score' => $nilai->nilai_akhir,
                     'status' => $nilai->status,
                     'date' => $nilai->created_at->format('d M Y'),
