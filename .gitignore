@@ -1,54 +1,26 @@
-# Laravel
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.codex
+/.cursor/
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
 /public/hot
 /public/storage
 /storage/*.key
 /storage/pail
 /vendor
-/node_modules
-
-# Environment files
-.env
-.env.backup
-.env.production
-.env.staging
-.phpunit.result.cache
-
-# Composer
-composer.lock
-
-# NPM
-npm-debug.log
-yarn-error.log
-pnpm-debug.log
-
-# Laravel Mix / Vite
-/public/build
-/public/mix-manifest.json
-
-# Logs
-/storage/logs/*
-*.log
-
-# Cache
-/bootstrap/cache/*.php
-/bootstrap/cache/packages.php
-/bootstrap/cache/services.php
-
-# IDE
-/.idea
-/.vscode
-
-# OS Files
-.DS_Store
+_ide_helper.php
+Homestead.json
+Homestead.yaml
 Thumbs.db
-
-# Testing
-coverage/
-.phpunit.cache
-
-# Sail
-docker-compose.override.yml
-
-# Misc
-*.swp
-*.swo
