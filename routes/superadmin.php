@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
 
 Route::prefix('sekolah')->name('superadmin.sekolah.')->group(function () {
-    Route::get('/', fn() => response('Sekolah Index'))->name('index');
+    Route::get('/', fn() => view('superadmin.sekolah.index'))->name('index');
 });
