@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SuperAdmin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | Middleware: auth, role:super_admin
 */
 
-Route::get('/dashboard', fn() => view('superadmin.dashboard'))->name('superadmin.dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
 
 Route::prefix('sekolah')->name('superadmin.sekolah.')->group(function () {
     Route::get('/', fn() => response('Sekolah Index'))->name('index');
