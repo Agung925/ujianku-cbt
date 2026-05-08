@@ -11,6 +11,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @method void authorize(string $ability, mixed $arguments = null)
+ * @method \Illuminate\View\View view(string $view, array $data = [])
+ */
 class SoalController extends Controller
 {
     /**

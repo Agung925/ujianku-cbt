@@ -7,15 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SoalImportRequest;
 use App\Imports\SoalImport;
 use App\Models\KategoriUjian;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class SoalImportController extends Controller
 {
     /**
      * Show import form
+     * 
+     * @return View|RedirectResponse
      */
-    public function showForm()
+    public function showForm(): View|RedirectResponse
     {
         $tenantId = tenancy()->tenant?->id;
         $user = Auth::user();
@@ -36,8 +42,10 @@ class SoalImportController extends Controller
 
     /**
      * Process import
+     * 
+     * @return View|RedirectResponse
      */
-    public function import(SoalImportRequest $request)
+    public function import(SoalImportRequest $request): View|RedirectResponse
     {
         $tenantId = tenancy()->tenant?->id;
         $user = Auth::user();
@@ -75,7 +83,7 @@ class SoalImportController extends Controller
                 'totalProcessed' => $successCount + $errorCount,
             ]);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()
                 ->with('error', 'Error processing file: ' . $e->getMessage())
                 ->withInput();
@@ -84,8 +92,10 @@ class SoalImportController extends Controller
 
     /**
      * Download template
+     * 
+     * @return BinaryFileResponse
      */
-    public function downloadTemplate()
+    public function downloadTemplate(): BinaryFileResponse
     {
         return Excel::download(
             new SoalTemplate(),

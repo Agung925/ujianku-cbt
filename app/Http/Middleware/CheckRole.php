@@ -31,7 +31,7 @@ class CheckRole
         $allowed = false;
 
         foreach ($roleList as $role) {
-            if (method_exists($user, 'hasRole') && $user->hasRole($role)) {
+            if (\method_exists($user, 'hasRole') && $user->hasRole($role)) {
                 $allowed = true;
                 break;
             }

@@ -96,21 +96,21 @@ class SoalTemplate implements FromArray, WithHeadings, WithColumnWidths, WithSty
         // Header styling
         $sheet->getStyle('1:1')->getFont()->setBold(true);
         $sheet->getStyle('1:1')->getFont()->setSize(12);
-        $sheet->getStyle('1:1')->setAlignment(
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::ALIGNMENT_CENTER
+        $sheet->getStyle('1:1')->getAlignment()->setHorizontal(
+            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
         );
         $sheet->getStyle('1:1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
         $sheet->getStyle('1:1')->getFill()->getStartColor()->setARGB('FFBDD7EE');
 
         // Center align columns B, G, H
-        $sheet->getStyle('B:B')->setAlignment(
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::ALIGNMENT_CENTER
+        $sheet->getStyle('B:B')->getAlignment()->setHorizontal(
+            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
         );
-        $sheet->getStyle('G:G')->setAlignment(
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::ALIGNMENT_CENTER
+        $sheet->getStyle('G:G')->getAlignment()->setHorizontal(
+            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
         );
-        $sheet->getStyle('H:H')->setAlignment(
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::ALIGNMENT_CENTER
+        $sheet->getStyle('H:H')->getAlignment()->setHorizontal(
+            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
         );
 
         // Wrap text for long content

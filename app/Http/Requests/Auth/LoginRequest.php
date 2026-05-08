@@ -14,6 +14,8 @@ class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @return bool
      */
     public function authorize(): bool
     {
@@ -36,7 +38,8 @@ class LoginRequest extends FormRequest
     /**
      * Attempt to authenticate the request's credentials.
      *
-     * @throws ValidationException
+     * @throws \Illuminate\Validation\ValidationException
+     * @return void
      */
     public function authenticate(): void
     {
@@ -45,6 +48,7 @@ class LoginRequest extends FormRequest
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
+            /** @noinspection PhpUnhandledExceptionInspection */
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
@@ -56,7 +60,8 @@ class LoginRequest extends FormRequest
     /**
      * Ensure the login request is not rate limited.
      *
-     * @throws ValidationException
+     * @throws \Illuminate\Validation\ValidationException
+     * @return void
      */
     public function ensureIsNotRateLimited(): void
     {
@@ -68,6 +73,7 @@ class LoginRequest extends FormRequest
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
+        /** @noinspection PhpUnhandledExceptionInspection */
         throw ValidationException::withMessages([
             'email' => trans('auth.throttle', [
                 'seconds' => $seconds,
