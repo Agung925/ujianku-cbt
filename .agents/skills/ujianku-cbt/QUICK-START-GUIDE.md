@@ -26,6 +26,22 @@ Jika ada yang belum, setup dulu sebelum lanjut!
 
 ---
 
+## 🔐 Default Testing Credentials
+
+Setelah menjalankan `php artisan migrate --seed`, default account berikut sudah tersedia:
+
+### Admin Account (untuk testing)
+```
+Email:    admin@ujianku.test
+Password: password
+Role:     admin
+Access:   http://localhost:8000/admin/dashboard
+```
+
+**Note:** Ini adalah akun default untuk development/testing. Di production, ganti credentials dengan yang aman.
+
+---
+
 ## 🎯 Development Workflow
 
 ### Step 1: Baca Context Files Dulu (PENTING!)
@@ -56,10 +72,7 @@ Jika ada yang belum, setup dulu sebelum lanjut!
 ```
 1. Test fitur yang baru dibuat (manual testing)
 2. Fix errors jika ada
-3. Commit ke Git:
-   git add .
-   git commit -m "Phase X: [deskripsi singkat]"
-4. Lanjut ke phase berikutnya
+3. Lanjut ke phase berikutnya
 ```
 
 ---
@@ -108,10 +121,11 @@ php artisan tinker
 
 ### Phase 2: Auth
 ```
-- Test Super Admin login (email + password)
+- Test Admin login (email: admin@ujianku.test, password: password)
 - Test Guru login (Google OAuth)
 - Test Siswa login (NIS + password)
 → Session created? Redirect to correct dashboard?
+→ Admin dashboard shows "Panel Admin Sekolah"?
 ```
 
 ### Phase 3+: Features

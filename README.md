@@ -1,5 +1,105 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
+# 🎓 UJIANKU-CBT — Computer-Based Test Platform
+
+**Status**: Active Development (Phase 4.1)  
+**Framework**: Laravel 13.8.0  
+**Database**: PostgreSQL 18.3  
+**Frontend**: Tailwind CSS v3.4 + DaisyUI v4.12
+
+> Platform Computer-Based Test (CBT) multi-tenant modern untuk institusi pendidikan dengan fitur anti-cheat dan management soal yang komprehensif.
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+```bash
+- PHP 8.5.5+
+- PostgreSQL 18.3+
+- Node.js 18+ (npm)
+- Composer latest
+```
+
+### Setup Project
+```bash
+# 1. Install dependencies
+composer install
+npm install
+
+# 2. Configure environment
+cp .env.example .env
+php artisan key:generate
+
+# 3. Setup database
+php artisan migrate --seed
+
+# 4. Build frontend assets
+npm run dev
+
+# 5. Start development server
+php artisan serve
+```
+
+### 🔐 Default Testing Credentials
+
+**Admin Account:**
+```
+Email:    admin@ujianku.test
+Password: password
+Role:     admin
+```
+
+Access admin panel at: `http://localhost:8000/admin/dashboard`
+
+---
+
+## 📚 Documentation
+
+- **Full Documentation**: See `/docs/` folder
+- **Architecture**: `.agents/skills/ujianku-cbt/SKILL.md`
+- **Quick Guide**: `.agents/skills/ujianku-cbt/QUICK-START-GUIDE.md`
+- **Phase Documentation**: `docs/PHASE-*.md`
+
+---
+
+## 🏗️ Project Structure
+
+```
+ujianku-cbt/
+├── app/                    # Laravel application code
+│   ├── Models/            # Database models
+│   ├── Http/Controllers/  # Controllers (Super Admin, Admin, Guru, Siswa)
+│   ├── Http/Requests/     # Form validation
+│   └── Http/Middleware/   # Custom middleware
+├── database/
+│   ├── migrations/        # Database migrations
+│   └── seeders/           # Database seeders
+├── resources/
+│   ├── views/             # Blade templates
+│   ├── css/               # Tailwind CSS
+│   └── js/                # JavaScript
+├── docs/                  # Documentation
+└── .agents/skills/        # AI Agent context files
+```
+
+---
+
+## 🎯 Features
+
+- ✅ Multi-tenant support (stancl/tenancy)
+- ✅ Role-based access control (admin, guru, siswa)
+- ✅ Google OAuth integration for guru login
+- ✅ Exam category management (Phase 4.1)
+- ✅ Question bank with ownership tracking
+- ✅ Anti-cheat mechanisms
+- ✅ DaisyUI responsive design
+- ⏳ In Development: Exam execution, grading, analytics
+
+---
+
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>

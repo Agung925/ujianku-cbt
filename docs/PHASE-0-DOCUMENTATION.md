@@ -268,10 +268,11 @@ Siswa:
    - Execution Time: ~192ms
 
 2. **SuperAdminSeeder** — `database/seeders/SuperAdminSeeder.php`
-   - Creates default super admin user
+   - Creates default admin user
    - Email: `admin@ujianku.test`
    - Password: `password` (hashed)
-   - Assigns `super_admin` role
+   - Name: `Admin Sekolah`
+   - Assigns `admin` role (not super_admin)
    - Execution Time: ~289ms
 
 **User Model Updates**:
