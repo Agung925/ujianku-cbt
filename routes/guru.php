@@ -5,6 +5,7 @@ use App\Http\Controllers\Guru\KategoriUjianController;
 use App\Http\Controllers\Guru\SoalController;
 use App\Http\Controllers\Guru\SoalImportController;
 use App\Http\Controllers\Guru\UjianController;
+use App\Http\Controllers\Guru\NilaiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,6 +62,15 @@ Route::prefix('ujian')->name('guru.ujian.')->group(function () {
     Route::delete('/{id}/questions/{soalId}',    [UjianController::class, 'removeQuestion'])->name('questions.remove');
     Route::patch('/{id}/activate',               [UjianController::class, 'activate'])->name('activate');
     Route::patch('/{id}/deactivate',             [UjianController::class, 'deactivate'])->name('deactivate');
+});
+
+// ===== NILAI (GRADING) =====
+Route::prefix('nilai')->name('guru.nilai.')->group(function () {
+    Route::get('/',                              [NilaiController::class, 'index'])->name('index');
+    Route::get('/{ujianId}/grade',               [NilaiController::class, 'gradeExam'])->name('grade-exam');
+    Route::get('/{ujianId}/soal/{soalId}',       [NilaiController::class, 'gradeQuestion'])->name('grade-question');
+    Route::post('/{ujianId}/submit-grade',       [NilaiController::class, 'submitGrade'])->name('submit-grade');
+    Route::post('/{ujianId}/publish',            [NilaiController::class, 'publishGrades'])->name('publish');
 });
 
 // ===== HASIL =====

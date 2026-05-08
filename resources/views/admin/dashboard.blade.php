@@ -3,16 +3,11 @@
         <h1 class="text-2xl font-bold text-base-content">Dashboard Admin</h1>
     </x-slot>
 
-    @php
-        $totalGuru   = \App\Models\Guru::where('is_active', true)->count();
-        $totalSiswa  = \App\Models\Siswa::where('is_active', true)->count();
-    @endphp
-
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <x-stats-card title="Total Guru" :value="$totalGuru" desc="Guru aktif" color="primary" />
-        <x-stats-card title="Total Siswa" :value="$totalSiswa" desc="Siswa aktif" color="secondary" />
-        <x-stats-card title="Ujian Aktif" value="-" desc="Sedang berjalan" color="success" />
-        <x-stats-card title="Ujian Selesai" value="-" desc="Bulan ini" color="info" />
+        <x-stats-card title="Total Guru" :value="$total_guru" desc="Guru di platform/tenant" color="primary" />
+        <x-stats-card title="Total Siswa" :value="$total_siswa" desc="Siswa di platform/tenant" color="secondary" />
+        <x-stats-card title="Total Kategori" :value="$total_kategori" desc="Bank soal" color="accent" />
+        <x-stats-card title="Ujian Hari Ini" :value="$ujian_hari_ini" desc="Ujian yang dibuat" color="info" />
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -42,8 +37,8 @@
         <!-- Info Panel -->
         <div class="card bg-base-100 shadow">
             <div class="card-body">
-                <h2 class="card-title">Panel Admin Sekolah</h2>
-                <p class="text-base-content/70">Kelola data guru, siswa, dan laporan ujian sekolah Anda.</p>
+                <h2 class="card-title">Panel Admin</h2>
+                <p class="text-base-content/70">Kelola semua data platform: guru, siswa, dan ujian.</p>
                 <div class="mt-3">
                     <div class="badge badge-primary badge-outline">{{ auth()->user()->name }}</div>
                     <div class="badge badge-ghost ml-1">Admin</div>

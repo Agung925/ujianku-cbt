@@ -17,7 +17,8 @@ class AdminAuthController extends Controller
     }
 
     /**
-     * Login admin/super_admin via guard web.
+     * Login admin via guard web.
+     * Note: super_admin role merged into admin role (2026-05-09)
      */
     public function login(AdminLoginRequest $request): RedirectResponse
     {
@@ -34,16 +35,12 @@ class AdminAuthController extends Controller
 
         $user = Auth::user();
 
-        if (! $user || ! ($user->isSuperAdmin() || $user->isAdmin())) {
+        if (! $user || ! $user->isAdmin()) {
             Auth::logout();
 
             return back()->withErrors([
-                'email' => 'Akun ini bukan admin atau super admin.',
+                'email' => 'Akun ini bukan admin.',
             ])->onlyInput('email');
-        }
-
-        if ($user->isSuperAdmin()) {
-            return redirect()->intended(route('superadmin.dashboard'));
         }
 
         return redirect()->intended(route('admin.dashboard'));

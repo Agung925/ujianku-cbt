@@ -22,9 +22,8 @@ class RoleAndPermissionSeeder extends Seeder
 
         // ===== PERMISSIONS =====
         $permissions = [
-            // Super Admin Permissions
+            // Platform Admin Permissions
             'manage-tenants',
-            'manage-superadmins',
             'view-all-schools',
             'view-all-exams',
 
@@ -64,13 +63,12 @@ class RoleAndPermissionSeeder extends Seeder
 
         // ===== ROLES =====
 
-        // Super Admin Role - Full access to everything
-        $superAdminRole = Role::findOrCreate('super_admin', 'web');
-        $superAdminRole->syncPermissions(Permission::all());
-
-        // Admin Role - Per-tenant admin
+        // Admin Role - Platform & Tenant Admin (merged from super_admin + admin)
         $adminRole = Role::findOrCreate('admin', 'web');
         $adminPermissions = [
+            'manage-tenants',
+            'view-all-schools',
+            'view-all-exams',
             'manage-users',
             'manage-teachers',
             'manage-students',

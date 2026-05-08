@@ -11,18 +11,12 @@ class CheckTenant
 {
     /**
      * Pastikan route tenant hanya diakses saat tenant context aktif.
-     * Super admin dan admin dapat bypass untuk development purposes.
+     * Admin dapat bypass untuk platform-level access.
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Super admin boleh akses global route tanpa tenant context.
-        if (Auth::check() && Auth::user()?->isSuperAdmin()) {
-            return $next($request);
-        }
-
-        // Admin dapat access admin routes tanpa explicit tenant context
-        // (untuk development/localhost testing purposes)
-        if (Auth::check() && Auth::user()?->hasRole('admin')) {
+        // Admin boleh akses global route tanpa tenant context (platform-level).
+        if (Auth::check() && Auth::user()?->isAdmin()) {
             return $next($request);
         }
 

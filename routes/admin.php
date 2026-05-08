@@ -3,17 +3,19 @@
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\KategoriUjianController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Admin Sekolah Routes
+| Admin Routes (Platform & Tenant Admin)
 |--------------------------------------------------------------------------
 | Prefix: /admin
 | Middleware: auth, role:admin
+| Note: Merged from superadmin role (2026-05-09)
 */
 
-Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 // ===== GURU MANAGEMENT =====
 Route::prefix('guru')->name('admin.guru.')->group(function () {
@@ -56,4 +58,9 @@ Route::prefix('kategori-ujian')->name('admin.kategori-ujian.')->group(function (
 // ===== LAPORAN =====
 Route::prefix('laporan')->name('admin.laporan.')->group(function () {
     Route::get('/', fn() => view('admin.laporan.index'))->name('index');
+});
+
+// ===== TENANT MANAGEMENT (Platform Admin) =====
+Route::prefix('sekolah')->name('admin.sekolah.')->group(function () {
+    Route::get('/', fn() => view('admin.sekolah.index'))->name('index');
 });

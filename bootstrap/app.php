@@ -12,11 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
-            Route::middleware(['web', 'auth', 'checkRole:super_admin'])
-                ->prefix('super-admin')
-                ->group(base_path('routes/superadmin.php'));
-
-            Route::middleware(['web', 'auth', 'checkTenant', 'checkRole:admin'])
+            // Admin routes (Platform Admin + Tenant Admin)
+            // Note: removed separate superadmin routes (merged 2026-05-09)
+            Route::middleware(['web', 'auth', 'checkRole:admin'])
                 ->prefix('admin')
                 ->group(base_path('routes/admin.php'));
 

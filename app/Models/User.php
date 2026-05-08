@@ -40,7 +40,9 @@ class User extends Authenticatable
      */
     public function isSuperAdmin(): bool
     {
-        return $this->hasRole('super_admin');
+        // Deprecated: super_admin role merged into admin role (2026-05-09)
+        // Use isAdmin() instead
+        return $this->hasRole('admin');
     }
 
     public function isAdmin(): bool
