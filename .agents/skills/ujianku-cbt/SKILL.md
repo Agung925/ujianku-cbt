@@ -1,6 +1,9 @@
 ---
 name: ujianku-cbt
-description: Describe what this skill does and when to use it. Include keywords that help agents identify relevant tasks.
+description: Panggil ini ketika anda perlu membuat fitur baru dan jika anda lupa context project, atau untuk referensi cepat.
+version: 1.0
+last_updated: 2026-05-08
+status: active
 ---
 
 <!-- Tip: Use /create-skill in chat to generate content with agent assistance -->

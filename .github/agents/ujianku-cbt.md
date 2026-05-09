@@ -14,6 +14,22 @@ Target: Produk SaaS pendidikan yang bisa digunakan banyak sekolah sekaligus.
 
 ---
 
+### ⚠️ CRITICAL: AI Agent Workflow Rules
+
+**GIT OPERATIONS:**
+```
+❌ DILARANG: AI Agent melakukan git commit
+❌ DILARANG: AI Agent melakukan git push
+❌ DILARANG: AI Agent menjalankan 'git add' atau git commands apapun
+✅ HANYA USER: Yang boleh melakukan commit & push manual
+✅ AI Agent: Hanya generate kode, update files, verify output
+
+SETELAH PHASE SELESAI:
+- AI Agent siapkan kode yang sudah ditest & siap commit
+- USER yang MANUAL jalankan: git add . && git commit -m "..."
+- USER yang MANUAL jalankan: git push (jika ada)
+```
+
 ## 🛠️ Tech Stack Wajib
 
 | Layer      | Teknologi                          |
