@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Stancl\Tenancy\Database\Models\Tenant;
 
 class GuruController extends Controller
 {
@@ -27,14 +28,21 @@ class GuruController extends Controller
 
     public function create(): View
     {
-        return view('admin.guru.create');
+        $tenants = Tenant::orderBy('id')->get()->mapWithKeys(function (Tenant $tenant) {
+            $label = data_get($tenant->data, 'name', $tenant->id);
+
+            return [$tenant->id => $label . ' (' . $tenant->id . ')'];
+        });
+
+        return view('admin.guru.create', compact('tenants'));
     }
 
     public function store(GuruRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        $tenantId = $data['tenant_id'];
 
-        DB::transaction(function () use ($data) {
+        DB::transaction(function () use ($data, $tenantId) {
             // Generate NIP otomatis jika kosong
             if (empty($data['nip'])) {
                 $data['nip'] = 'NIP-' . strtoupper(Str::random(8));
@@ -50,6 +58,7 @@ class GuruController extends Controller
             $user->assignRole('guru');
 
             Guru::create([
+                'tenant_id'     => $tenantId,
                 'user_id'       => $user->id,
                 'email'         => $data['email'],
                 'nama'          => $data['nama'],

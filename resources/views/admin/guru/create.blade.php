@@ -12,6 +12,22 @@
                 <form method="POST" action="{{ route('admin.guru.store') }}">
                     @csrf
 
+                    <!-- Tenant -->
+                    <div class="form-control mb-4">
+                        <label class="label"><span class="label-text font-medium">Tenant <span class="text-error">*</span></span></label>
+                        <select name="tenant_id" class="select select-bordered @error('tenant_id') select-error @enderror" required>
+                            <option value="" disabled {{ old('tenant_id') ? '' : 'selected' }}>Pilih tenant</option>
+                            @foreach($tenants as $tenantId => $tenantLabel)
+                                <option value="{{ $tenantId }}" {{ old('tenant_id') == $tenantId ? 'selected' : '' }}>
+                                    {{ $tenantLabel }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('tenant_id')
+                            <label class="label"><span class="label-text-alt text-error">{{ $message }}</span></label>
+                        @enderror
+                    </div>
+
                     <!-- Nama -->
                     <div class="form-control mb-4">
                         <label class="label"><span class="label-text font-medium">Nama Lengkap <span class="text-error">*</span></span></label>

@@ -45,8 +45,17 @@ class SiswaController extends Controller
     public function store(SiswaRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        
+        // Get tenant context (admin can manage their tenant)
+        $tenantId = tenancy()->tenant?->id ?? \Stancl\Tenancy\Database\Models\Tenant::first()?->id;
+        
+        if (!$tenantId) {
+            return redirect()->back()
+                ->withErrors('Tidak ada tenant yang tersedia untuk membuat siswa.');
+        }
 
         Siswa::create([
+            'tenant_id' => $tenantId,
             'nis'       => $data['nis'],
             'nama'      => $data['nama'],
             'kelas'     => $data['kelas'],

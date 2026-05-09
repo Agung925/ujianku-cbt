@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         then: function () {
             // Admin routes (Platform Admin + Tenant Admin)
             // Note: removed separate superadmin routes (merged 2026-05-09)
-            Route::middleware(['web', 'auth', 'checkRole:admin'])
+            Route::middleware(['web', 'auth', 'checkTenant', 'checkRole:admin'])
                 ->prefix('admin')
                 ->group(base_path('routes/admin.php'));
 

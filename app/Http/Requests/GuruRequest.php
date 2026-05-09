@@ -20,8 +20,7 @@ class GuruRequest extends FormRequest
     public function rules(): array
     {
         $guruId = $this->route('guru');
-
-        return [
+        $rules = [
             'nama'          => ['required', 'string', 'max:255'],
             'email'         => [
                 'required',
@@ -38,6 +37,12 @@ class GuruRequest extends FormRequest
             'is_wali_kelas' => ['nullable', 'boolean'],
             'is_active'     => ['nullable', 'boolean'],
         ];
+
+        if ($this->isMethod('post')) {
+            $rules['tenant_id'] = ['required', Rule::exists('tenants', 'id')];
+        }
+
+        return $rules;
     }
 
     public function messages(): array
