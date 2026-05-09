@@ -27,6 +27,25 @@
 
             <!-- Page Content -->
             <main class="flex-1 p-6">
+                <!-- Flash Messages -->
+                @if(session('success'))
+                    <div class="mb-4">
+                        <x-success-alert>{{ session('success') }}</x-success-alert>
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="mb-4">
+                        <x-error-alert>{{ session('error') }}</x-error-alert>
+                    </div>
+                @endif
+
+                @if(session('warning'))
+                    <div class="mb-4">
+                        <x-warning-alert>{{ session('warning') }}</x-warning-alert>
+                    </div>
+                @endif
+
                 <!-- Page Header -->
                 @isset($header)
                 <div class="mb-6">
